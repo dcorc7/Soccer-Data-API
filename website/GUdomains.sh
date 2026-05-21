@@ -4,7 +4,7 @@ echo "Cleaning previous build..."
 rm -rf Soccer-Data-API
 
 echo "Rendering Quarto website..."
-quarto render website
+quarto render
 
 echo "Setting permissions..."
 

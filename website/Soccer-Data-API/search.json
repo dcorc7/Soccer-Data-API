@@ -4,20 +4,13 @@
     "href": "index.html",
     "title": "Soccer Data API",
     "section": "",
-    "text": "This project provides interactive soccer analytics and visualizations using Streamlit.\n\n\n\n\nLaunch Dashboard\n\n\n\n\n\n\nThis dashboard uses: - Streamlit - Python - Soccer APIs - Interactive visualizations"
-  },
-  {
-    "objectID": "index.html#launch-the-app",
-    "href": "index.html#launch-the-app",
-    "title": "Soccer Data API",
-    "section": "",
-    "text": "Launch Dashboard"
+    "text": "This project provides interactive soccer analytics and visualizations using Streamlit.\n\n\n\n\n\n\n\n\n\nThis dashboard uses:\n\nStreamlit\nPython\nSoccer APIs\nInteractive visualizations"
   },
   {
     "objectID": "index.html#about",
     "href": "index.html#about",
     "title": "Soccer Data API",
     "section": "",
-    "text": "This dashboard uses: - Streamlit - Python - Soccer APIs - Interactive visualizations"
+    "text": "This dashboard uses:\n\nStreamlit\nPython\nSoccer APIs\nInteractive visualizations"
   }
 ]

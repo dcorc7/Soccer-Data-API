@@ -6,23 +6,27 @@ title: "Soccer Data API"
 
 This project provides interactive soccer analytics and visualizations using Streamlit.
 
-## Launch the App
+---
 
-<a
-href="https://soccer-data-api.streamlit.app/"
-target="_blank">
+## Live Dashboard
 
-<button style="padding:12px 20px; font-size:18px;">
-Launch Dashboard
-</button>
-
-</a>
+<iframe
+src="https://soccer-data-api.streamlit.app/"
+width="100%"
+height="900"
+style="
+border:none;
+border-radius:10px;
+overflow:hidden;
+">
+</iframe>
 
 ---
 
 ## About
 
 This dashboard uses:
+
 - Streamlit
 - Python
 - Soccer APIs
