@@ -2,6 +2,7 @@ name: Daily App Refresh
 
 on:
   schedule:
+    # Every day at 6:00 AM UTC (1:00 AM EST)
     - cron: "0 6 * * *"
   workflow_dispatch:
 
