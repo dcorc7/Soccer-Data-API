@@ -1,0 +1,29 @@
+---
+title: "Soccer Data API"
+---
+
+# Soccer Analytics Dashboard
+
+This project provides interactive soccer analytics and visualizations using Streamlit.
+
+## Launch the App
+
+<a
+href="https://your-app-name.streamlit.app"
+target="_blank">
+
+<button style="padding:12px 20px; font-size:18px;">
+Launch Dashboard
+</button>
+
+</a>
+
+---
+
+## About
+
+This dashboard uses:
+- Streamlit
+- Python
+- Soccer APIs
+- Interactive visualizations
