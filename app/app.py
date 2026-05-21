@@ -12,6 +12,18 @@ st.set_page_config(
     layout = "wide"
 )
 
+st.markdown(
+    """
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Soccer Analytics Dashboard</h2>
+        <a href="https://corcoran.georgetown.domains/Homepage/" target="_blank">Portfolio Homepage</a>
+        <a href="https://github.com/dcorc7/" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/david-corcoran-70677917a/" target="_blank">LinkedIn</a>
+    </div>
+    """,
+    unsafe_allow_html = True
+)
+
 API_KEY = st.secrets.get("API_KEY", "")
 
 LEAGUE_IDS = {
@@ -114,12 +126,12 @@ with tab2:
 # --------------------------
 
 with tab3:
-    st.title(f"{league} Matches Today")
+    today = str(date.today())
+    st.title(f"{league} Matches Today - {today}")
 
     data = fetch_data(urls["matches"])
 
     matches = data["matches"]
-    today = str(date.today())
 
     rows = []
 
