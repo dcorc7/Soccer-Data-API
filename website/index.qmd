@@ -9,7 +9,7 @@ This project provides interactive soccer analytics and visualizations using Stre
 ## Launch the App
 
 <a
-href="https://your-app-name.streamlit.app"
+href="https://soccer-data-api.streamlit.app/"
 target="_blank">
 
 <button style="padding:12px 20px; font-size:18px;">
