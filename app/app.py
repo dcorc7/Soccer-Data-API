@@ -14,36 +14,28 @@ st.set_page_config(
 )
 
 # Page Header
-  
-st.markdown(
-    """
-    <div class="custom-header">
+col_left, col_center, col_right = st.columns([1, 2, 1])
 
-        <div class="header-left">
-            <a href="https://corcoran.georgetown.domains/Homepage/" target="_blank">Portfolio Homepage</a>
-        </div>
+with col_left:
+    st.markdown("[Portfolio Homepage](https://corcoran.georgetown.domains/Homepage/)")
 
-        <div class="header-center">
-            <h2>Soccer Data API Dashboard</h2>
-        </div>
+with col_center:
+    st.markdown("<h2 style='text-align: center;'>Soccer Data API Dashboard</h2>", unsafe_allow_html=True)
 
-        <div class="header-right">
-            <a href="https://github.com/dcorc7/" target="_blank">GitHub</a>
+with col_right:
+    st.markdown(
+        "[GitHub](https://github.com/dcorc7/) &nbsp;&nbsp; [LinkedIn](https://www.linkedin.com/in/david-corcoran-70677917a/)",
+        unsafe_allow_html=True
+    )
 
-            <a href="https://www.linkedin.com/in/david-corcoran-70677917a/" target="_blank">LinkedIn</a>
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html = True
-)
+st.divider()
 
 # Retreive API key from Streamlit secrets
 API_KEY = st.secrets.get("API_KEY", "")
 
 # Dictionaty to map League IDs recognized by the API to real-english names
 LEAGUE_IDS = {
-    "English Premier League (UK)": "PL",
+    "Premier League (UK)": "PL",
     "Bundesliga (GER)": "BL1",
     "Serie A (ITA)": "SA",
     "Lique 1 (FRA)": "FL1",
