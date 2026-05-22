@@ -14,21 +14,43 @@ st.set_page_config(
 )
 
 # Page Header
-col_left, col_center, col_right = st.columns([1, 2, 1])
+col_left, col_right = st.columns([2, 1])
 
 with col_left:
-    st.markdown("[Portfolio Homepage](https://corcoran.georgetown.domains/Homepage/)")
-
-with col_center:
-    st.markdown("<h2 style='text-align: center;'>Soccer Data API Dashboard</h2>", unsafe_allow_html=True)
-
-with col_right:
     st.markdown(
-        "[GitHub](https://github.com/dcorc7/) &nbsp;&nbsp; [LinkedIn](https://www.linkedin.com/in/david-corcoran-70677917a/)",
+        "<h2 style='margin: 0; padding: 0.5rem 0;'>Soccer Data API Dashboard</h2>",
         unsafe_allow_html=True
     )
 
-st.divider()
+with col_right:
+    st.markdown(
+        """
+        <div style="display: flex; gap: 8px; justify-content: flex-end; padding: 0.5rem 0;">
+            <a href="https://github.com/dcorc7/" target="_blank"
+               style="display: inline-flex; align-items: center; gap: 6px;
+                      padding: 6px 14px; border-radius: 8px; font-size: 14px;
+                      font-weight: 500; text-decoration: none;
+                      background: #1f1f1f; color: white;">
+                GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/david-corcoran-70677917a/" target="_blank"
+               style="display: inline-flex; align-items: center; gap: 6px;
+                      padding: 6px 14px; border-radius: 8px; font-size: 14px;
+                      font-weight: 500; text-decoration: none;
+                      background: #0077b5; color: white;">
+                LinkedIn
+            </a>
+            <a href="https://corcoran.georgetown.domains/Homepage/" target="_blank"
+               style="display: inline-flex; align-items: center; gap: 6px;
+                      padding: 6px 14px; border-radius: 8px; font-size: 14px;
+                      font-weight: 500; text-decoration: none;
+                      background: #0073e6; color: white;">
+                Portfolio
+            </a>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Retreive API key from Streamlit secrets
 API_KEY = st.secrets.get("API_KEY", "")
