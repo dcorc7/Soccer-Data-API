@@ -106,8 +106,9 @@ for league_name in LEAGUE_IDS.keys():
     if is_selected:
         st.sidebar.markdown(
             f"""
-            <div style="background-color: #303d4e; color: white;  text-align: center; font-weight: 500;
-                        font-size: 14px;">{league_name}</div>
+            <div style="background-color: #303d4e; color: white; padding: 8px 12px;
+                        border-radius: 8px; text-align: center; font-weight: 500;
+                        font-size: 14px; margin-bottom: 5px;">{league_name}</div>
             """,
             unsafe_allow_html=True
         )
