@@ -14,56 +14,7 @@ st.set_page_config(
 )
 
 # Page Header
-st.markdown(
-    """
-    <style>
-    .custom-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 2rem;
-        border-bottom: 1px solid #ddd;
-        background-color: white;
-        margin-bottom: 2rem;
-    }
-
-    .header-left,
-    .header-right {
-        display: flex;
-        gap: 1.5rem;
-        align-items: center;
-        width: 25%;
-    }
-
-    .header-right {
-        justify-content: flex-end;
-    }
-
-    .header-center {
-        width: 50%;
-        text-align: center;
-    }
-
-    .header-center h2 {
-        margin: 0;
-        font-size: 2rem;
-    }
-
-    .custom-header a {
-        text-decoration: none;
-        color: #1f1f1f;
-        font-weight: 500;
-    }
-
-    .custom-header a:hover {
-        color: #0073e6;
-    }
-    </style>
-    """,
-    unsafe_allow_html = True
-)
-
-    
+  
 st.markdown(
     """
     <div class="custom-header">
@@ -162,21 +113,13 @@ with tab1:
     # Page title and Interoduction
     st.markdown(
         """
-        <div style="
-            padding: 3rem;
-            border-radius: 15px;
-            background: linear-gradient(to right, #0f172a, #1e293b);
-            color: white;
-            text-align: center;
-            margin-bottom: 2rem;
-        ">
-            <h1 style="font-size: 3rem;">
-                Soccer Data API Dashboard
-            </h1>
+        <h1 style="font-size: 3rem;">
+            Soccer Data API Dashboard
+        </h1>
 
-            <p style="font-size: 1.2rem;">Explore league standings, top scorers, and live match data powered by the Football-Data.org API.</p>
-
-        </div>
+        <p">
+            Explore league standings, top scorers, and live match data powered by the Football-Data.org API.
+        </p>
         """,
         unsafe_allow_html = True
     )
