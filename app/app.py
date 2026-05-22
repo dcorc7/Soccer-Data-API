@@ -62,7 +62,7 @@ LEAGUE_IDS = {
     "Serie A (ITA)": "SA",
     "Lique 1 (FRA)": "FL1",
     "La Liga (ESP)": "PD",
-    "UEFA Champions League": "CL"
+    "Champions League": "CL"
 }
 
 # Function to get the Soccer API urls related to the selected league ID. Returns standings, scorers, and matches data urls
@@ -90,11 +90,22 @@ def fetch_data(url):
 # Sidebar for league selection
 st.sidebar.title("Leagues")
 
-# Select box for user to pick a league
-league = st.sidebar.selectbox(
-    "Select a league",
-    list(LEAGUE_IDS.keys())
-)
+# Sidebar for user to pick a league
+st.sidebar.markdown("### Select a League")
+
+# Put all available leagues as sidebarbuttons and set selected_league to the pressed button
+league = None
+for league_name in LEAGUE_IDS.keys():
+    if st.sidebar.button(league_name, use_container_width=True):
+        st.session_state.selected_league = league_name
+
+# Default to the first league in the list
+if "selected_league" not in st.session_state:
+    st.session_state.selected_league = list(LEAGUE_IDS.keys())[0]
+
+# Set league equalt o the selected league
+league = st.session_state.selected_league
+st.sidebar.markdown(f"**Selected:** {league}")
 
 # Variable to hold what league the user selected
 league_id = LEAGUE_IDS[league]
