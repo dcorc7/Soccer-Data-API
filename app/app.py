@@ -93,19 +93,33 @@ st.sidebar.title("Leagues")
 # Sidebar for user to pick a league
 st.sidebar.markdown("### Select a League")
 
-# Put all available leagues as sidebarbuttons and set selected_league to the pressed button
-league = None
-for league_name in LEAGUE_IDS.keys():
-    if st.sidebar.button(league_name, use_container_width=True):
-        st.session_state.selected_league = league_name
-
-# Default to the first league in the list
+# Set default league to the first in the dictionary
 if "selected_league" not in st.session_state:
     st.session_state.selected_league = list(LEAGUE_IDS.keys())[0]
 
-# Set league equalt o the selected league
+# Loop through all league names 
+for league_name in LEAGUE_IDS.keys():
+    # Set is_selected to be the selected league name (default is first in list)
+    is_selected = st.session_state.selected_league == league_name
+
+    # Highlight the button if selected
+    if is_selected:
+        st.sidebar.markdown(
+            f"""
+            <div style="background-color: #0073e6; color: white; padding: 8px 12px;
+                        border-radius: 8px; text-align: center; font-weight: 500;
+                        font-size: 14px; margin-bottom: 4px;">{league_name}</div>
+            """,
+            unsafe_allow_html=True
+        )
+    # Non selected leagues are non-highlighted buttons
+    else:
+        if st.sidebar.button(league_name, use_container_width=True):
+            st.session_state.selected_league = league_name
+            st.rerun()
+
+# Set league variable as league that was selected
 league = st.session_state.selected_league
-st.sidebar.markdown(f"**Selected:** {league}")
 
 # Variable to hold what league the user selected
 league_id = LEAGUE_IDS[league]
