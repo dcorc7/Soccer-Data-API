@@ -140,7 +140,7 @@ urls = build_urls(league_id)
 
 # Tab Layout
 tab1, tab2, tab3, tab4 = st.tabs([
-    "Dashboard Homepage"
+    "Dashboard Homepage",
     "Standings",
     "Top Scorers",
     "Current Matches"
