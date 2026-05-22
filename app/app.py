@@ -59,7 +59,13 @@ st.markdown(
         color: #0073e6;
     }
     </style>
+    """,
+    unsafe_allow_html = True
+)
 
+    
+st.markdown(
+    """
     <div class="custom-header">
 
         <div class="header-left">
@@ -168,10 +174,8 @@ with tab1:
                 Soccer Data API Dashboard
             </h1>
 
-            <p style="font-size: 1.2rem;">
-                Explore league standings, top scorers, and live match data
-                powered by the Football-Data.org API.
-            </p>
+            <p style="font-size: 1.2rem;">Explore league standings, top scorers, and live match data powered by the Football-Data.org API.</p>
+
         </div>
         """,
         unsafe_allow_html = True
