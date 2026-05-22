@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-from datetime import date
+from datetime import date, datetime, timedelta
 
 
 # ----------------------
@@ -316,23 +316,25 @@ with tab3:
 
 # TODAYS MATCHES TAB
 with tab4:
-    # Set varaible to hold todays date
-    today = str(date.today())
+    # Proper date objects
+    today = date.today()
+    future_date = today + timedelta(days = 7)
 
     st.title(f"{league} Upcoming Matches")
 
-    # Get match json data for today
     data = fetch_data(urls["matches"])
-
-    # Find data just for matches
     matches = data["matches"]
 
-    # Creates table rows with matchday, home team name, away tame name
+    # Reset rows inside tab
     rows = []
+
     for m in matches:
-        if today + 7 <= m["utcDate"][:10] >= today:
+        match_date = datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date()
+
+        if today <= match_date <= future_date:
             rows.append({
                 "Matchday": m["matchday"],
+                "Match Date": match_date,
                 "Home Team Name": m["homeTeam"]["name"],
                 "Away Team Name": m["awayTeam"]["name"]
             })
