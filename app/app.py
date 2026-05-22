@@ -121,10 +121,6 @@ with tab1:
     # Page title and Interoduction
     st.markdown(
         """
-        <h1 style="font-size: 3rem;">
-            Soccer Data API Dashboard
-        </h1>
-
         <p>
             Explore league standings, top scorers, and live match data powered by the Football-Data.org API.
         </p>
