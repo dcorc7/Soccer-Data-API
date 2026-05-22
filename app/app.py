@@ -37,14 +37,14 @@ with col_right:
                style="display: inline-flex; align-items: center; gap: 6px;
                       padding: 6px 14px; border-radius: 8px; font-size: 14px;
                       font-weight: 500; text-decoration: none;
-                      background: #0077b5; color: white;">
+                      background: #303d4e; color: white;">
                 LinkedIn
             </a>
             <a href="https://corcoran.georgetown.domains/Homepage/" target="_blank"
                style="display: inline-flex; align-items: center; gap: 6px;
                       padding: 6px 14px; border-radius: 8px; font-size: 14px;
                       font-weight: 500; text-decoration: none;
-                      background: #0073e6; color: white;">
+                      background: #0077b5; color: white;">
                 Portfolio
             </a>
         </div>
@@ -321,6 +321,6 @@ with tab4:
 
     # Write no matches today if there are no rows
     if len(rows) <= 0:
-        st.write("No matches in tje next 7 days")
+        st.write("No upcoming matches")
 
     st.markdown("---")
