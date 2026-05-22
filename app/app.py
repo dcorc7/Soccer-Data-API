@@ -121,8 +121,9 @@ with tab1:
     # Page title and Interoduction
     st.markdown(
         """
+        <br>
         <p>
-            Explore league standings, top scorers, and live match data powered by the Football-Data.org API.
+            Explore league standings, top scorers, and live match data powered by the <a href="https://www.football-data.org/">Football-Data.org</a> API.
         </p>
         """,
         unsafe_allow_html = True
