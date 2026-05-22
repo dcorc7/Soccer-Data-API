@@ -20,9 +20,7 @@ st.markdown(
     <div class="custom-header">
 
         <div class="header-left">
-            <a href="https://corcoran.georgetown.domains/Homepage/" target="_blank">
-                Portfolio Homepage
-            </a>
+            <a href="https://corcoran.georgetown.domains/Homepage/" target="_blank">Portfolio Homepage</a>
         </div>
 
         <div class="header-center">
@@ -30,13 +28,9 @@ st.markdown(
         </div>
 
         <div class="header-right">
-            <a href="https://github.com/dcorc7/" target="_blank">
-                GitHub
-            </a>
+            <a href="https://github.com/dcorc7/" target="_blank">GitHub</a>
 
-            <a href="https://www.linkedin.com/in/david-corcoran-70677917a/" target="_blank">
-                LinkedIn
-            </a>
+            <a href="https://www.linkedin.com/in/david-corcoran-70677917a/" target="_blank">LinkedIn</a>
         </div>
 
     </div>
@@ -49,7 +43,7 @@ API_KEY = st.secrets.get("API_KEY", "")
 
 # Dictionaty to map League IDs recognized by the API to real-english names
 LEAGUE_IDS = {
-    "English Permier League (UK)": "PL",
+    "English Premier League (UK)": "PL",
     "Bundesliga (GER)": "BL1",
     "Serie A (ITA)": "SA",
     "Lique 1 (FRA)": "FL1",
@@ -117,7 +111,7 @@ with tab1:
             Soccer Data API Dashboard
         </h1>
 
-        <p">
+        <p>
             Explore league standings, top scorers, and live match data powered by the Football-Data.org API.
         </p>
         """,
@@ -291,6 +285,6 @@ with tab4:
 
     # Write no matches today if there are no rows
     if len(rows) <= 0:
-        st.write("No matches today")
+        st.write("No matches in tje next 7 days")
 
     st.markdown("---")
