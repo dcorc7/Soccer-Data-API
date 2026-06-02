@@ -340,5 +340,40 @@ with tab4:
 
 
 with testtab:
-    data = fetch_data(urls["standings"])
-    st.json(data)
+    base = "https://api.football-data.org/v4/competitions"
+
+    standings_url = f"{base}/{league_id}/standings"
+    scorers_url = f"{base}/{league_id}/scorers"
+    matches_url = f"{base}/{league_id}/matches"
+
+
+    standings_data = fetch_data(standings_url)
+    st.json(standings_data)
+
+    st.write(standings_data[0])
+
+
+
+    st.markdown("---")
+
+
+
+    matches_data = fetch_data(matches_url)
+    st.json(matches_data)
+
+    st.write(matches_data[0])
+
+
+
+    st.markdown("---")
+
+
+
+    scorers_data = fetch_data(scorers_url)
+    st.json(scorers_data)
+
+    st.write(scorers_data[0])
+
+
+
+    st.markdown("---")
