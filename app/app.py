@@ -233,23 +233,37 @@ with tab1:
 with tab2:
     st.title(f"{league} Standings")
 
-    # Retrieve standings data from selected league
     data = fetch_data(urls["standings"])
+    standings = data["standings"]
 
-    # Gets standings json data
-    table = data["standings"][0]["table"]
-
-    # Creates table rows with Team position, team name, num wins, num draws, num losses, and total points
     rows = []
-    for team in table:
-        rows.append({
-            "Position": team["position"],
-            "Team Name": team["team"]["name"],
-            "# Wins": team["won"],
-            "# Draws": team["draw"],
-            "# Losses": team["lost"],
-            "Total Points": team["points"]
-        })
+
+    # World Cup / tournament: multiple groups, each with their own table
+    if len(standings) > 1:
+        for group in standings:
+            group_name = group["group"]
+            for team in group["table"]:
+                rows.append({
+                    "Group": group_name,
+                    "Position": team["position"],
+                    "Team Name": team["team"]["name"],
+                    "# Wins": team["won"],
+                    "# Draws": team["draw"],
+                    "# Losses": team["lost"],
+                    "Total Points": team["points"]
+                })
+
+    # Standard league: single table
+    else:
+        for team in standings[0]["table"]:
+            rows.append({
+                "Position": team["position"],
+                "Team Name": team["team"]["name"],
+                "# Wins": team["won"],
+                "# Draws": team["draw"],
+                "# Losses": team["lost"],
+                "Total Points": team["points"]
+            })
 
     # Display the dataframe
     st.dataframe(rows, use_container_width = True)
@@ -320,21 +334,25 @@ with tab4:
 
         for m in matches:
             if m["matchday"] == next_matchday:
-                rows.append({
+                row = {
                     "Matchday": m["matchday"],
                     "Match Date": datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date(),
                     "Home Team Name": m["homeTeam"]["name"],
                     "Away Team Name": m["awayTeam"]["name"]
-                })
+                }
+
+                # Add group column for tournaments (World Cup, etc.)
+                if m.get("group"):
+                    row["Group"] = m["group"].replace("_", " ").title()
+
+                rows.append(row)
 
         st.title(f"{league} Matchday {next_matchday} — {next_matchday_date.strftime('%B %d, %Y')}")
-
-        # Display the dataframe 
-        st.dataframe(rows, use_container_width = True)
+        st.dataframe(rows, use_container_width=True)
 
     else:
         st.title(f"{league} Upcoming Matches")
-        st.write("No upcoming matches")      
+        st.write("No upcoming matches")
 
     st.markdown("---")
 
