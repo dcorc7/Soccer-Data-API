@@ -130,12 +130,11 @@ urls = build_urls(league_id)
 
 
 # Tab Layout
-tab1, tab2, tab3, tab4, testtab = st.tabs([
+tab1, tab2, tab3, tab4 = st.tabs([
     "Dashboard Homepage",
     "Standings",
     "Top Scorers",
-    "Upcoming Matches",
-    "test response"
+    "Upcoming Matches"
 ])
 
 
@@ -236,15 +235,15 @@ with tab2:
     data = fetch_data(urls["standings"])
     standings = data["standings"]
 
-    rows = []
-
     # World Cup / tournament: multiple groups, each with their own table
     if len(standings) > 1:
         for group in standings:
-            group_name = group["group"]
+            group_name = group["group"].replace("_", " ").title()
+            st.subheader(group_name)
+
+            rows = []
             for team in group["table"]:
                 rows.append({
-                    "Group": group_name,
                     "Position": team["position"],
                     "Team Name": team["team"]["name"],
                     "# Wins": team["won"],
@@ -253,8 +252,11 @@ with tab2:
                     "Total Points": team["points"]
                 })
 
+            st.dataframe(rows, use_container_width=True)
+
     # Standard league: single table
     else:
+        rows = []
         for team in standings[0]["table"]:
             rows.append({
                 "Position": team["position"],
@@ -265,8 +267,7 @@ with tab2:
                 "Total Points": team["points"]
             })
 
-    # Display the dataframe
-    st.dataframe(rows, use_container_width = True)
+        st.dataframe(rows, use_container_width=True)
 
     st.markdown("---")
 
@@ -314,84 +315,37 @@ with tab4:
     data = fetch_data(urls["matches"])
     matches = data["matches"]
 
-    # Find the next soonest matchday that hasn't fully passed
-    upcoming_matchdays = [
-        m["matchday"] for m in matches
+    # Find the next soonest date with upcoming matches
+    upcoming_dates = [
+        datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date()
+        for m in matches
         if datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date() >= today
     ]
 
     rows = []
 
-    if upcoming_matchdays:
-        next_matchday = min(upcoming_matchdays)
-
-        # Get the date of the first match in that matchday
-        next_matchday_date = min(
-            datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date()
-            for m in matches
-            if m["matchday"] == next_matchday
-        )
+    if upcoming_dates:
+        next_date = min(upcoming_dates)
 
         for m in matches:
-            if m["matchday"] == next_matchday:
+            match_date = datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date()
+            if match_date == next_date:
                 row = {
-                    "Matchday": m["matchday"],
-                    "Match Date": datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date(),
+                    "Match Date": match_date,
                     "Home Team Name": m["homeTeam"]["name"],
                     "Away Team Name": m["awayTeam"]["name"]
                 }
 
-                # Add group column for tournaments (World Cup, etc.)
                 if m.get("group"):
                     row["Group"] = m["group"].replace("_", " ").title()
 
                 rows.append(row)
 
-        st.title(f"{league} Matchday {next_matchday} — {next_matchday_date.strftime('%B %d, %Y')}")
+        st.title(f"{league} Matches — {next_date.strftime('%B %d, %Y')}")
         st.dataframe(rows, use_container_width=True)
 
     else:
         st.title(f"{league} Upcoming Matches")
         st.write("No upcoming matches")
-
-    st.markdown("---")
-
-
-with testtab:
-    base = "https://api.football-data.org/v4/competitions"
-
-    standings_url = f"{base}/{league_id}/standings"
-    scorers_url = f"{base}/{league_id}/scorers"
-    matches_url = f"{base}/{league_id}/matches"
-
-
-    standings_data = fetch_data(standings_url)
-    st.json(standings_data)
-
-    st.write(standings_data["standings"][0]["table"])
-
-
-
-    st.markdown("---")
-
-
-
-    matches_data = fetch_data(matches_url)
-    st.json(matches_data)
-
-    st.write(matches_data["matches"])
-
-
-
-    st.markdown("---")
-
-
-
-    scorers_data = fetch_data(scorers_url)
-    st.json(scorers_data)
-
-    st.write(scorers_data["scorers"])
-
-
 
     st.markdown("---")
