@@ -350,7 +350,7 @@ with testtab:
     standings_data = fetch_data(standings_url)
     st.json(standings_data)
 
-    st.write(standings_data["standings"])
+    st.write(standings_data["standings"][0]["table"])
 
 
 
