@@ -350,7 +350,7 @@ with testtab:
     standings_data = fetch_data(standings_url)
     st.json(standings_data)
 
-    st.write(standings_data[0])
+    st.write(standings_data["standings"])
 
 
 
@@ -361,7 +361,7 @@ with testtab:
     matches_data = fetch_data(matches_url)
     st.json(matches_data)
 
-    st.write(matches_data[0])
+    st.write(matches_data["matches"])
 
 
 
@@ -372,7 +372,7 @@ with testtab:
     scorers_data = fetch_data(scorers_url)
     st.json(scorers_data)
 
-    st.write(scorers_data[0])
+    st.write(scorers_data["scorers"])
 
 
 
