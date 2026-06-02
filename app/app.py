@@ -333,9 +333,6 @@ with tab4:
 
     else:
         st.title(f"{league} Upcoming Matches")
-
-    # Write no matches today if there are no rows
-    if len(rows) <= 0:
-        st.write("No upcoming matches")
+        st.write("No upcoming matches")      
 
     st.markdown("---")
