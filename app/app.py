@@ -288,37 +288,51 @@ with tab3:
     st.markdown("---")
 
 
-# --------------------------
-# ----- TODAYS MATCHES -----
-# --------------------------
+# ----------------------------
+# ----- UPCOMING MATCHES -----
+# ----------------------------
 
-# TODAYS MATCHES TAB
+# UPCOMING MATCHES TAB
 with tab4:
-    # Proper date objects
     today = date.today()
-    future_date = today + timedelta(days = 7)
-
-    st.title(f"{league} Upcoming Matches")
 
     data = fetch_data(urls["matches"])
     matches = data["matches"]
 
-    # Reset rows inside tab
+    # Find the next soonest matchday that hasn't fully passed
+    upcoming_matchdays = [
+        m["matchday"] for m in matches
+        if datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date() >= today
+    ]
+
     rows = []
 
-    for m in matches:
-        match_date = datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date()
+    if upcoming_matchdays:
+        next_matchday = min(upcoming_matchdays)
 
-        if today <= match_date <= future_date:
-            rows.append({
-                "Matchday": m["matchday"],
-                "Match Date": match_date,
-                "Home Team Name": m["homeTeam"]["name"],
-                "Away Team Name": m["awayTeam"]["name"]
-            })
+        # Get the date of the first match in that matchday
+        next_matchday_date = min(
+            datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date()
+            for m in matches
+            if m["matchday"] == next_matchday
+        )
 
-    # Display the dataframe 
-    st.dataframe(rows, use_container_width = True)
+        for m in matches:
+            if m["matchday"] == next_matchday:
+                rows.append({
+                    "Matchday": m["matchday"],
+                    "Match Date": datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date(),
+                    "Home Team Name": m["homeTeam"]["name"],
+                    "Away Team Name": m["awayTeam"]["name"]
+                })
+
+        st.title(f"{league} Matchday {next_matchday} — {next_matchday_date.strftime('%B %d, %Y')}")
+
+        # Display the dataframe 
+        st.dataframe(rows, use_container_width = True)
+
+    else:
+        st.title(f"{league} Upcoming Matches")
 
     # Write no matches today if there are no rows
     if len(rows) <= 0:
