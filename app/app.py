@@ -62,7 +62,8 @@ LEAGUE_IDS = {
     "Serie A (ITA)": "SA",
     "Lique 1 (FRA)": "FL1",
     "La Liga (ESP)": "PD",
-    "Champions League": "CL"
+    "Champions League": "CL",
+    "World Cup": "WC"
 }
 
 # Function to get the Soccer API urls related to the selected league ID. Returns standings, scorers, and matches data urls

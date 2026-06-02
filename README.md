@@ -11,7 +11,7 @@ A Streamlit web application for exploring live soccer data — standings, top sc
 - **Standings** — Full league table with wins, draws, losses, and total points
 - **Top Scorers** — Leading goal scorers with penalty breakdowns and scoring efficiency
 - **Upcoming Matches** — Fixtures for the next 7 days with matchday details
-- **6 Leagues** — Switch between competitions instantly via the sidebar
+- **7 Leagues** — Switch between competitions instantly via the sidebar
 
 ### Supported Leagues
 
