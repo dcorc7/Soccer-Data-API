@@ -130,11 +130,12 @@ urls = build_urls(league_id)
 
 
 # Tab Layout
-tab1, tab2, tab3, tab4 = st.tabs([
+tab1, tab2, tab3, tab4, testtab = st.tabs([
     "Dashboard Homepage",
     "Standings",
     "Top Scorers",
-    "Current Matches"
+    "Upcoming Matches",
+    "test response"
 ])
 
 
@@ -336,3 +337,8 @@ with tab4:
         st.write("No upcoming matches")      
 
     st.markdown("---")
+
+
+with testtab:
+    data = fetch_data(urls["standings"])
+    st.json(data)
