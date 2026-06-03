@@ -346,7 +346,7 @@ with tab4:
             if match_date == next_date:
                 # Convert UTC to EST (UTC-5)
                 utc_dt = datetime.strptime(match["utcDate"], "%Y-%m-%dT%H:%M:%SZ")
-                est_time = (utc_dt - timedelta(hours = 5)).strftime("%I:%M %p")
+                est_time = (utc_dt - timedelta(hours = 4)).strftime("%I:%M %p")
 
                 row = {
                     "Match Date": match_date,
