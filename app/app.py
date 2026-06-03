@@ -252,7 +252,12 @@ with tab2:
                     "Total Points": team["points"]
                 })
 
-            st.dataframe(rows, use_container_width=True)
+            # Display the dataframe
+            if len(rows) > 0:
+                st.dataframe(rows, use_container_width = True)
+            
+            else:
+                st.write("No table for this league")
 
     # Standard league: single table
     else:
@@ -266,8 +271,13 @@ with tab2:
                 "# Losses": team["lost"],
                 "Total Points": team["points"]
             })
-
-        st.dataframe(rows, use_container_width=True)
+        
+        # Display the dataframe
+        if len(rows) > 0:
+            st.dataframe(rows, use_container_width = True)
+        
+        else:
+            st.write("No table for this league")
 
     st.markdown("---")
 
@@ -294,12 +304,16 @@ with tab3:
             "Player Name": player["player"]["name"],
             "Team Name": player["team"]["name"],
             "# Goals": player["goals"],
-            "# Penalties": player["penalties"] if player["penalties"] else 0,
-            "% Penalties": (player["penalties"] / player["goals"] * 100) if player["penalties"] else 0
+            "# Penalties": player["penalties"] if player["penalties"] else 0.00,
+            "% Penalties": round((player["penalties"] / player["goals"] * 100), 2) if player["penalties"] else 0.00
         })
 
     # Display the dataframe
-    st.dataframe(rows, use_container_width = True)
+    if len(rows) > 0:
+        st.dataframe(rows, use_container_width = True)
+    
+    else:
+        st.write("No scorers in this league")
 
     st.markdown("---")
 
@@ -317,9 +331,9 @@ with tab4:
 
     # Find the next soonest date with upcoming matches
     upcoming_dates = [
-        datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date()
-        for m in matches
-        if datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date() >= today
+        datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date()
+        for match in matches
+        if datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date() >= today
     ]
 
     rows = []
@@ -327,17 +341,17 @@ with tab4:
     if upcoming_dates:
         next_date = min(upcoming_dates)
 
-        for m in matches:
-            match_date = datetime.strptime(m["utcDate"][:10], "%Y-%m-%d").date()
+        for match in matches:
+            match_date = datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date()
             if match_date == next_date:
                 row = {
                     "Match Date": match_date,
-                    "Home Team Name": m["homeTeam"]["name"],
-                    "Away Team Name": m["awayTeam"]["name"]
+                    "Home Team Name": match["homeTeam"]["name"],
+                    "Away Team Name": match["awayTeam"]["name"]
                 }
 
-                if m.get("group"):
-                    row["Group"] = m["group"].replace("_", " ").title()
+                if match.get("group"):
+                    row["Group"] = match["group"].replace("_", " ").title()
 
                 rows.append(row)
 
