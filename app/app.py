@@ -344,8 +344,13 @@ with tab4:
         for match in matches:
             match_date = datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date()
             if match_date == next_date:
+                # Convert UTC to EST (UTC-5)
+                utc_dt = datetime.strptime(match["utcDate"], "%Y-%m-%dT%H:%M:%SZ")
+                est_time = (utc_dt - timedelta(hours = 5)).strftime("%I:%M %p")
+
                 row = {
                     "Match Date": match_date,
+                    "Time (EST)": est_time,
                     "Home Team Name": match["homeTeam"]["name"],
                     "Away Team Name": match["awayTeam"]["name"]
                 }
