@@ -311,15 +311,6 @@ with tab3:
             "% Penalties": round((player["penalties"] / player["goals"] * 100), 2) if player["penalties"] else 0.00
         })
 
-    # Creates table rows with player name, team name, num assists
-    assists_rows = []
-    for player in scorers:
-        assists_rows.append({
-            "Player Name": player["player"]["name"],
-            "Team Name": player["team"]["name"],
-            "# Assists": player["assists"]
-        })
-
     # Display the goals dataframe
     if len(goals_rows) > 0:
         st.subheader("Goals Table:")
@@ -327,14 +318,6 @@ with tab3:
     
     else:
         st.write("No goals in this league")
-
-    # Display the assists dataframe
-    if len(assists_rows) > 0:
-        st.subheader("Assists Table:")
-        st.dataframe(assists_rows, use_container_width = True)
-
-    else:
-        st.write("No assists in this league")
 
     st.markdown("---")
 
@@ -374,7 +357,9 @@ with tab4:
                     "Match Date": match_date,
                     "Time (EST)": est_time,
                     "Home Team Name": match["homeTeam"]["name"],
-                    "Away Team Name": match["awayTeam"]["name"]
+                    "Away Team Name": match["awayTeam"]["name"],
+                    "Venue": match["venue"],
+                    "Stage": match["stage"]
                 }
 
                 if match.get("group"):
