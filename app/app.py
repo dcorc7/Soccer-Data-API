@@ -354,7 +354,8 @@ with tab4:
                     "Match Date": match_date,
                     "Time (EST)": est_time,
                     "Home Team Name": match["homeTeam"]["name"],
-                    "Away Team Name": match["awayTeam"]["name"]
+                    "Away Team Name": match["awayTeam"]["name"],
+                    "Venue": match["venue"]
                 }
 
                 if match.get("group"):
