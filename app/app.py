@@ -297,9 +297,6 @@ with tab3:
     # Gets Scorers json data
     scorers = data["scorers"]
 
-    st.write("Raw Test Data:")
-    st.write(len(scorers))
-
     # Creates table rows with player name, team name, num goals, num penalties
     goals_rows = []
     for player in scorers:
@@ -364,6 +361,12 @@ with tab4:
 
                 if match.get("group"):
                     row["Group"] = match["group"].replace("_", " ").title()
+
+                if match.get("stage"):
+                    row["Stage"] = match["stage"].replace("_", " ").title()
+
+                if match.get("venue"):
+                    row["Venue"] = match["venue"]
 
                 rows.append(row)
 
