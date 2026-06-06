@@ -287,7 +287,7 @@ with tab2:
 # ----- TOP CONTRIBUTORS -----
 # ----------------------------
 
-# TOP SCORERS TAB
+# TOP CONTRIBUTORS TAB
 with tab3:
     st.title(f"{league} Top Contributors")
 
@@ -296,6 +296,9 @@ with tab3:
 
     # Gets Scorers json data
     scorers = data["scorers"]
+
+    st.write("Raw Test Data:")
+    print(scorers[0])
 
     # Creates table rows with player name, team name, num goals, num penalties
     goals_rows = []
