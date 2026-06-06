@@ -133,7 +133,7 @@ urls = build_urls(league_id)
 tab1, tab2, tab3, tab4 = st.tabs([
     "Dashboard Homepage",
     "Standings",
-    "Top Scorers",
+    "Top Contributors",
     "Upcoming Matches"
 ])
 
@@ -209,7 +209,7 @@ with tab1:
         ### Top Scorers
 
         Analyze:
-        - Leading scorers
+        - Leading contributors (goals & assists)
         - Penalty goals
         - Scoring efficiency
         """)
@@ -283,13 +283,13 @@ with tab2:
 
 
 
-# -----------------------
-# ----- TOP SCORERS -----
-# -----------------------
+# ----------------------------
+# ----- TOP CONTRIBUTORS -----
+# ----------------------------
 
 # TOP SCORERS TAB
 with tab3:
-    st.title(f"{league} Top Scorers")
+    st.title(f"{league} Top Contributors")
 
     # Retrieve standings data from selected league
     data = fetch_data(urls["scorers"])
@@ -298,9 +298,9 @@ with tab3:
     scorers = data["scorers"]
 
     # Creates table rows with player name, team name, num goals, num penalties
-    rows = []
+    goals_rows = []
     for player in scorers:
-        rows.append({
+        goals_rows.append({
             "Player Name": player["player"]["name"],
             "Team Name": player["team"]["name"],
             "# Goals": player["goals"],
@@ -308,12 +308,30 @@ with tab3:
             "% Penalties": round((player["penalties"] / player["goals"] * 100), 2) if player["penalties"] else 0.00
         })
 
-    # Display the dataframe
-    if len(rows) > 0:
-        st.dataframe(rows, use_container_width = True)
+    # Creates table rows with player name, team name, num assists
+    assists_rows = []
+    for player in scorers:
+        assists_rows.append({
+            "Player Name": player["player"]["name"],
+            "Team Name": player["team"]["name"],
+            "# Assists": player["assists"]
+        })
+
+    # Display the goals dataframe
+    if len(goals_rows) > 0:
+        st.subheader("Goals Table:")
+        st.dataframe(goals_rows, use_container_width = True)
     
     else:
-        st.write("No scorers in this league")
+        st.write("No goals in this league")
+
+    # Display the assists dataframe
+    if len(assists_rows) > 0:
+        st.subheader("Assists Table:")
+        st.dataframe(assists_rows, use_container_width = True)
+
+    else:
+        st.write("No assists in this league")
 
     st.markdown("---")
 
@@ -343,6 +361,7 @@ with tab4:
 
         for match in matches:
             match_date = datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date()
+
             if match_date == next_date:
                 # Convert UTC to EST (UTC-5)
                 utc_dt = datetime.strptime(match["utcDate"], "%Y-%m-%dT%H:%M:%SZ")
