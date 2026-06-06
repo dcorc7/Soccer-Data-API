@@ -298,7 +298,7 @@ with tab3:
     scorers = data["scorers"]
 
     st.write("Raw Test Data:")
-    print(scorers[0])
+    print(scorers)
 
     # Creates table rows with player name, team name, num goals, num penalties
     goals_rows = []
