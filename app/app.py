@@ -338,23 +338,32 @@ with tab4:
         if datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date() >= today
     ]
 
+    # Check if the upcoming_dates list is not empty
     if upcoming_dates:
+        # Get the next matchday date
         next_date = min(upcoming_dates)
 
+        # Print tab title
         st.title(f"{league} Upcoming Matches")
 
-        # Group matches by date
+        # Group matches by date. Dictionary tracks matches for each valid day
         matches_by_date = defaultdict(list)
 
+        # Loop through each of the match dates in the upcoming matches list
         for match in matches:
+            # Strip date into correct format
             match_date = datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date()
 
+            # Check if this match occurs between today and the next 7 days
             if next_date <= match_date <= next_date + timedelta(days = 7):
 
+                # Get UTC time
                 utc_dt = datetime.strptime(match["utcDate"], "%Y-%m-%dT%H:%M:%SZ")
 
+                # Convert to EST time
                 est_time = (utc_dt - timedelta(hours = 4)).strftime("%I:%M %p")
 
+                # Append row of table to include time, team names, group, stage, and venue to the matchday table
                 row = {
                     "Time (EST)": est_time,
                     "Home Team Name": match["homeTeam"]["name"],
@@ -370,17 +379,21 @@ with tab4:
                 if match.get("venue"):
                     row["Venue"] = match["venue"]
 
+                # Append the row to the dictionary
                 matches_by_date[match_date].append(row)
 
-        # Display one table per date
+        # Display one table per date, looping through each match date within the previously created match dictionary
         for match_date in sorted(matches_by_date.keys()):
-            st.subheader(match_date.strftime("%B %d, %Y"))
+            # Subheader
+            st.subheader(match_date.strftime("%A, %B %d, %Y"))
 
+            # Display dictionary values for the individual matchday
             st.dataframe(
                 matches_by_date[match_date],
                 use_container_width = True
             )
 
+    # If there are no upcoming matches, display error
     else:
         st.title(f"{league} Upcoming Matches")
         st.write("No upcoming matches")
