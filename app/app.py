@@ -323,6 +323,8 @@ with tab3:
 # ----- UPCOMING MATCHES -----
 # ----------------------------
 
+from collections import defaultdict
+
 # UPCOMING MATCHES TAB
 with tab4:
     today = date.today()
@@ -330,46 +332,54 @@ with tab4:
     data = fetch_data(urls["matches"])
     matches = data["matches"]
 
-    # Find the next soonest date with upcoming matches
     upcoming_dates = [
         datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date()
         for match in matches
         if datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date() >= today
     ]
 
-    rows = []
-
     if upcoming_dates:
         next_date = min(upcoming_dates)
+
+        st.title(f"{league} Upcoming Matches")
+
+        # Group matches by date
+        matches_by_date = defaultdict(list)
 
         for match in matches:
             match_date = datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date()
 
-            if match_date == next_date:
-                # Convert UTC to EST (UTC-5)
+            if next_date <= match_date <= next_date + timedelta(days = 7):
+
                 utc_dt = datetime.strptime(match["utcDate"], "%Y-%m-%dT%H:%M:%SZ")
+
                 est_time = (utc_dt - timedelta(hours = 4)).strftime("%I:%M %p")
 
                 row = {
-                    "Match Date": match_date,
                     "Time (EST)": est_time,
                     "Home Team Name": match["homeTeam"]["name"],
                     "Away Team Name": match["awayTeam"]["name"]
                 }
 
                 if match.get("group"):
-                    row["Group"] = match["group"].replace("_", " ").title()
+                    row["Group"] = (match["group"].replace("_", " ").title())
 
                 if match.get("stage"):
-                    row["Stage"] = match["stage"].replace("_", " ").title()
+                    row["Stage"] = (match["stage"].replace("_", " ").title())
 
                 if match.get("venue"):
                     row["Venue"] = match["venue"]
 
-                rows.append(row)
+                matches_by_date[match_date].append(row)
 
-        st.title(f"{league} Matches — {next_date.strftime('%B %d, %Y')}")
-        st.dataframe(rows, use_container_width=True)
+        # Display one table per date
+        for match_date in sorted(matches_by_date.keys()):
+            st.subheader(match_date.strftime("%B %d, %Y"))
+
+            st.dataframe(
+                matches_by_date[match_date],
+                use_container_width = True
+            )
 
     else:
         st.title(f"{league} Upcoming Matches")
