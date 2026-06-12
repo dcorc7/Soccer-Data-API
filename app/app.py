@@ -96,7 +96,7 @@ st.sidebar.markdown("### Select a League")
 
 # Set default league to the first in the dictionary
 if "selected_league" not in st.session_state:
-    st.session_state.selected_league = list(LEAGUE_IDS.keys())[0]
+    st.session_state.selected_league = list(LEAGUE_IDS.keys())[6]
 
 # Loop through all league names 
 for league_name in LEAGUE_IDS.keys():
@@ -332,12 +332,12 @@ with tab4:
     data = fetch_data(urls["matches"])
     matches = data["matches"]
 
-    # Initialize upcoming dates list
+    # Initialize upcoming dates list to hold all match days today and beyond
     upcoming_dates = []
 
     # Loop through all obtained matches
     for match in matches:
-        # Get utc date and format
+        # Get utc date and format correctly
         utc_dt = datetime.strptime(match["utcDate"], "%Y-%m-%dT%H:%M:%SZ")
 
         # Convert UTC to EST
