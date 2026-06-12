@@ -332,11 +332,20 @@ with tab4:
     data = fetch_data(urls["matches"])
     matches = data["matches"]
 
-    upcoming_dates = [
-        datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date()
-        for match in matches
-        if datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date() >= today
-    ]
+    # Initialize upcoming dates list
+    upcoming_dates = []
+
+    # Loop through all obtained matches
+    for match in matches:
+        # Get utc date and format
+        utc_dt = datetime.strptime(match["utcDate"], "%Y-%m-%dT%H:%M:%SZ")
+
+        # Convert UTC to EST
+        est_date = (utc_dt - timedelta(hours=4)).date()
+
+        # Add dates that are today or in the future
+        if est_date >= today:
+            upcoming_dates.append(est_date)
 
     # Check if the upcoming_dates list is not empty
     if upcoming_dates:
@@ -351,17 +360,21 @@ with tab4:
 
         # Loop through each of the match dates in the upcoming matches list
         for match in matches:
-            # Strip date into correct format
-            match_date = datetime.strptime(match["utcDate"][:10], "%Y-%m-%d").date()
+
+            # Strip utc datetime and convert to datetime format
+            utc_dt = datetime.strptime(match["utcDate"], "%Y-%m-%dT%H:%M:%SZ")
+
+            # Convert UTC into EST Date (4 hour difference)
+            est_dt = utc_dt - timedelta(hours=4)
+
+            # Get match date as the date the match occurs in EST 
+            match_date = est_dt.date()
+
+            # Format est_time
+            est_time = est_dt.strftime("%I:%M %p")
 
             # Check if this match occurs between today and the next 7 days
             if next_date <= match_date <= next_date + timedelta(days = 7):
-
-                # Get UTC time
-                utc_dt = datetime.strptime(match["utcDate"], "%Y-%m-%dT%H:%M:%SZ")
-
-                # Convert to EST time
-                est_time = (utc_dt - timedelta(hours = 4)).strftime("%I:%M %p")
 
                 # Append row of table to include time, team names, group, stage, and venue to the matchday table
                 row = {
