@@ -63,7 +63,8 @@ LEAGUE_IDS = {
     "Lique 1 (FRA)": "FL1",
     "La Liga (ESP)": "PD",
     "Champions League": "CL",
-    "World Cup": "WC"
+    "World Cup": "WC",
+    "Championship (UK)": "ELC"
 }
 
 # Function to get the Soccer API urls related to the selected league ID. Returns standings, scorers, and matches data urls
@@ -96,7 +97,7 @@ st.sidebar.markdown("### Select a League")
 
 # Set default league to the first in the dictionary
 if "selected_league" not in st.session_state:
-    st.session_state.selected_league = list(LEAGUE_IDS.keys())[6]
+    st.session_state.selected_league = list(LEAGUE_IDS.keys())[0]
 
 # Loop through all league names 
 for league_name in LEAGUE_IDS.keys():
